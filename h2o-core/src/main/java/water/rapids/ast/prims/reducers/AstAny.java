@@ -39,6 +39,7 @@ public class AstAny extends AstPrimitive {
       long trueCount = ((domainV != null) && domainV[0].equalsIgnoreCase("true"))
               ?(vec.length()-vec.nzCnt()):vec.nzCnt()+vec.naCnt();
       if (trueCount > 0)
+
         return new ValNum(1);   // Some nonzeros in there somewhere
     }
     return new ValNum(0);
