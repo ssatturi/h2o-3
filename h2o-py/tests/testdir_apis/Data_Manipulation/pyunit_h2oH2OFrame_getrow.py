@@ -13,18 +13,16 @@ def h2o_H2OFrame_getrow():
     """
     Python API test: h2o.frame.H2OFrame.getrow()
     """
-    try:
-        numRow = randrange(1,3)
-        numCol = randrange(1,10)
-        python_lists = np.random.uniform(-1,1, (numRow, numCol))
-        h2oframe = h2o.H2OFrame(python_obj=python_lists)
-        onerow = h2oframe.getrow()
-        assert_is_type(onerow, list)    # check return type
-        # check and make sure random picked elements agree
-        colInd = randrange(0, h2oframe.ncol)
-        assert abs(h2oframe[0, colInd]-onerow[colInd]) < 1e-6, "h2o.H2OFrame.getrow() command is not working."
-    except H2OValueError:   # expect this error when number of row > 1
-        pass
+    numRow = randrange(1,3)
+    numCol = 1
+    python_lists = np.random.uniform(-1,1, (numRow, numCol))
+    h2oframe = h2o.H2OFrame(python_obj=python_lists)
+    onerow = h2oframe.getrow()
+    assert_is_type(onerow, list)    # check return type
+    # check and make sure random picked elements agree
+    rowInd = randrange(0, h2oframe.nrow)
+    assert abs(h2oframe[rowInd, 0]-onerow[rowInd]) < 1e-6, "h2o.H2OFrame.getrow() command is not working."
+
 
 if __name__ == "__main__":
     pyunit_utils.standalone_test(h2o_H2OFrame_getrow())

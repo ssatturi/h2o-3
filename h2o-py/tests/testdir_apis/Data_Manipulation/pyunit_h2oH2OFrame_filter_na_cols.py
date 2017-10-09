@@ -14,7 +14,7 @@ def h2o_H2OFrame_filter_na_cols():
     fr = h2o.import_file(pyunit_utils.locate("smalldata/logreg/prostate.csv"))
     include_cols = fr.filter_na_cols()  # should be all columns
     assert_is_type(include_cols, list)
-    assert include_cols==range(fr.ncol), "h2o.H2OFrame.filter_na_cols() command is not working."
+    assert include_cols==list(range(fr.ncol)), "h2o.H2OFrame.filter_na_cols() command is not working."
 
     fr[1,1] = None  # make a value None, filter out the second column
 

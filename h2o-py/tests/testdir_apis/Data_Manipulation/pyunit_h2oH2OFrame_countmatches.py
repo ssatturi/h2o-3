@@ -13,13 +13,14 @@ def h2o_H2OFrame_countmatches():
 
     Copied from pyunit_countmatches.py
     """
-    prostate_frame = h2o.import_file(path=pyunit_utils.locate("smalldata/prostate/prostate_cat.csv"))
-    leftover = prostate_frame["DPROS"].cbind(prostate_frame["CAPSULE"]).cbind(prostate_frame["DCAPS"])
-    leftover.ascharacter()  # change to string
-    matches = leftover.countmatches(['left', 'No', 'Yes'])
+    python_lists = [["what","is"], ["going", "on"], ["When", "are"], ["MeetingMeetingon", "gone"]]
+    h2oframe = h2o.H2OFrame(python_obj=python_lists)
+    matches = h2oframe.countmatches(['Wh', 'ing', 'on'])
     assert_is_type(matches, H2OFrame)
-    assert matches.shape == leftover.shape, "h2o.H2OFrame.countmatches() command is not working."
-    assert matches.any(), "h2o.H2OFrame.countmatches() command is not working."
+    assert matches.shape == h2oframe.shape, "h2o.H2OFrame.countmatches() command is not working."
+    assert matches.any_na_rm(), "h2o.H2OFrame.countmatches() command is not working."
+    nomatches = h2oframe.countmatches(['rain','pluck'])
+    assert not(matches.any_na_rm()), "h2o.H2OFrame.countmatches() command is not working."
 
 if __name__ == "__main__":
     pyunit_utils.standalone_test(h2o_H2OFrame_countmatches())

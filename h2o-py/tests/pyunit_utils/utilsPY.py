@@ -5,6 +5,7 @@ from builtins import range
 from past.builtins import basestring
 import sys, os
 import numpy as np
+import operator
 
 try:        # works with python 2.7 not 3
     from StringIO import StringIO
@@ -3152,10 +3153,10 @@ def factorial(n):
     if n>=2:
         return n*factorial(n-1)
 
-def cumop(items, op):
+def cumop(items, op, colInd=0):   # take in one column only
     res = [None]*len(items)
-    for i, item in enumerate(items):
-        res[i] = op(res[i-1], item) if i > 0 else item
+    for index in range(len(items)):
+        res[index] = op(res[index-1], items[index, colInd]) if index > 0 else items[index, colInd]
     return res
 
 def cumsum(n):

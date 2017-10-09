@@ -8,9 +8,9 @@ def h2o_H2OFrame_any_rm_na():
     """
     Python API test: h2o.frame.H2OFrame.any_na_rm()
     """
-    python_lists = [[0,1,0,0], [0,0,0,0]]
+    python_lists = [['NA',1,'NA','NA'], ['NA','NA','NA','NA']]
     h2oframe = h2o.H2OFrame(python_obj=python_lists, na_strings=['NA'])
-    assert h2oframe.any(), "h2o.H2OFrame.any_rm_na() command is not working."
+    assert h2oframe.any_na_rm(), "h2o.H2OFrame.any_rm_na() command is not working."
 
 if __name__ == "__main__":
     pyunit_utils.standalone_test(h2o_H2OFrame_any_rm_na())
